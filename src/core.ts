@@ -1,3 +1,5 @@
+import * as fs from "fs";
+import axios from "axios";
 import {
     AgenciesResponse,
     Catalog,
@@ -7,10 +9,8 @@ import {
     PropertiesResponse,
     Property,
     RawAgency,
-    RawProperty,
-} from "./types";
-import * as fs from "fs";
-import axios from "axios";
+    RawProperty
+} from "../types";
 
 export default class Apimo {
     basePath = 'https://api.apimo.pro/';
@@ -75,14 +75,22 @@ export default class Apimo {
 
         this._debug && console.log(`🔌 Accessing: ${url}`);
 
-        const res = await axios.get(url, {
-            method: 'get',
-            headers: {
-                "Content-Type": "application/json",
-                ...this._getAuthorizationHeader(),
-            },
-            data: JSON.stringify(params),
-        });
+        let res;
+        try {
+            res = await axios.get(url, {
+                method: 'get',
+                headers: {
+                    "Content-Type": "application/json",
+                    ...this._getAuthorizationHeader(),
+                },
+                data: JSON.stringify(params),
+            });
+        } catch (e) {
+            if (e && typeof e === 'object' && 'message' in e) {
+                throw new Error(`⚠️ ${e.message}`);
+            }
+            throw new Error(`⚠️ ${e}`);
+        }
 
         const json = res.data;
 

@@ -78,11 +78,20 @@ class Apimo {
         return __awaiter(this, void 0, void 0, function* () {
             const url = this.basePath + path.join('/');
             this._debug && console.log(`🔌 Accessing: ${url}`);
-            const res = yield axios_1.default.get(url, {
-                method: 'get',
-                headers: Object.assign({ "Content-Type": "application/json" }, this._getAuthorizationHeader()),
-                data: JSON.stringify(params),
-            });
+            let res;
+            try {
+                res = yield axios_1.default.get(url, {
+                    method: 'get',
+                    headers: Object.assign({ "Content-Type": "application/json" }, this._getAuthorizationHeader()),
+                    data: JSON.stringify(params),
+                });
+            }
+            catch (e) {
+                if (e && typeof e === 'object' && 'message' in e) {
+                    throw new Error(`⚠️ ${e.message}`);
+                }
+                throw new Error(`⚠️ ${e}`);
+            }
             const json = res.data;
             if (json.status) {
                 throw new Error(`⚠️ ${json.title} (${json.status}): ${json.message}`);
