@@ -13,8 +13,13 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
 var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./core"), exports);
+exports.default = void 0;
+var core_1 = require("./core");
+Object.defineProperty(exports, "default", { enumerable: true, get: function () { return __importDefault(core_1).default; } });
 __exportStar(require("./schemas/agency"), exports);
 __exportStar(require("./schemas/common"), exports);
 __exportStar(require("./schemas/property"), exports);
