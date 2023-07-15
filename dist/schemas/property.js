@@ -120,7 +120,7 @@ const getCommentSchema = (catalogTransformer) => zod_1.z.object({
     title: zod_1.z.string().optional().nullable(),
     subtitle: zod_1.z.string().optional().nullable(),
     hook: zod_1.z.unknown().transform(v => {
-        if (v !== undefined) {
+        if (v !== undefined && v !== 'undefined') {
             console.log(`Unhandled key \`comment.hook\` with value \`${v}\``);
         }
         return v;
