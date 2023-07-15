@@ -200,7 +200,7 @@ export declare const getCommentSchema: (catalogTransformer: CatalogTransformer) 
     language: z.ZodString;
     title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     subtitle: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-    hook: z.ZodEffects<z.ZodUnknown, void, unknown>;
+    hook: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
     comment: z.ZodString;
     comment_full: z.ZodNullable<z.ZodOptional<z.ZodString>>;
 }, "strip", z.ZodTypeAny, {
@@ -208,7 +208,7 @@ export declare const getCommentSchema: (catalogTransformer: CatalogTransformer) 
     comment: string;
     title?: string | null | undefined;
     subtitle?: string | null | undefined;
-    hook?: void | undefined;
+    hook?: unknown;
     comment_full?: string | null | undefined;
 }, {
     language: string;
@@ -233,7 +233,7 @@ export declare const getPictureSchema: (catalogTransformer: CatalogTransformer) 
         language: z.ZodString;
         title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
         subtitle: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-        hook: z.ZodEffects<z.ZodUnknown, void, unknown>;
+        hook: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
         comment: z.ZodString;
         comment_full: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     }, "strip", z.ZodTypeAny, {
@@ -241,7 +241,7 @@ export declare const getPictureSchema: (catalogTransformer: CatalogTransformer) 
         comment: string;
         title?: string | null | undefined;
         subtitle?: string | null | undefined;
-        hook?: void | undefined;
+        hook?: unknown;
         comment_full?: string | null | undefined;
     }, {
         language: string;
@@ -266,7 +266,7 @@ export declare const getPictureSchema: (catalogTransformer: CatalogTransformer) 
         comment: string;
         title?: string | null | undefined;
         subtitle?: string | null | undefined;
-        hook?: void | undefined;
+        hook?: unknown;
         comment_full?: string | null | undefined;
     }[];
     reference?: unknown;
@@ -311,7 +311,7 @@ export declare const getAreaSchema: (catalogTransformer: CatalogTransformer) => 
         language: z.ZodString;
         title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
         subtitle: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-        hook: z.ZodEffects<z.ZodUnknown, void, unknown>;
+        hook: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
         comment: z.ZodString;
         comment_full: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     }, "strip", z.ZodTypeAny, {
@@ -319,7 +319,7 @@ export declare const getAreaSchema: (catalogTransformer: CatalogTransformer) => 
         comment: string;
         title?: string | null | undefined;
         subtitle?: string | null | undefined;
-        hook?: void | undefined;
+        hook?: unknown;
         comment_full?: string | null | undefined;
     }, {
         language: string;
@@ -350,7 +350,7 @@ export declare const getAreaSchema: (catalogTransformer: CatalogTransformer) => 
         comment: string;
         title?: string | null | undefined;
         subtitle?: string | null | undefined;
-        hook?: void | undefined;
+        hook?: unknown;
         comment_full?: string | null | undefined;
     }[];
     area: number;
@@ -799,7 +799,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             language: z.ZodString;
             title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
             subtitle: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-            hook: z.ZodEffects<z.ZodUnknown, void, unknown>;
+            hook: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
             comment: z.ZodString;
             comment_full: z.ZodNullable<z.ZodOptional<z.ZodString>>;
         }, "strip", z.ZodTypeAny, {
@@ -807,7 +807,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment: string;
             title?: string | null | undefined;
             subtitle?: string | null | undefined;
-            hook?: void | undefined;
+            hook?: unknown;
             comment_full?: string | null | undefined;
         }, {
             language: string;
@@ -832,7 +832,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment: string;
             title?: string | null | undefined;
             subtitle?: string | null | undefined;
-            hook?: void | undefined;
+            hook?: unknown;
             comment_full?: string | null | undefined;
         }[];
         reference?: unknown;
@@ -862,7 +862,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         language: z.ZodString;
         title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
         subtitle: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-        hook: z.ZodEffects<z.ZodUnknown, void, unknown>;
+        hook: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
         comment: z.ZodString;
         comment_full: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     }, "strip", z.ZodTypeAny, {
@@ -870,7 +870,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         comment: string;
         title?: string | null | undefined;
         subtitle?: string | null | undefined;
-        hook?: void | undefined;
+        hook?: unknown;
         comment_full?: string | null | undefined;
     }, {
         language: string;
@@ -901,7 +901,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             language: z.ZodString;
             title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
             subtitle: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-            hook: z.ZodEffects<z.ZodUnknown, void, unknown>;
+            hook: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
             comment: z.ZodString;
             comment_full: z.ZodNullable<z.ZodOptional<z.ZodString>>;
         }, "strip", z.ZodTypeAny, {
@@ -909,7 +909,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment: string;
             title?: string | null | undefined;
             subtitle?: string | null | undefined;
-            hook?: void | undefined;
+            hook?: unknown;
             comment_full?: string | null | undefined;
         }, {
             language: string;
@@ -940,7 +940,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment: string;
             title?: string | null | undefined;
             subtitle?: string | null | undefined;
-            hook?: void | undefined;
+            hook?: unknown;
             comment_full?: string | null | undefined;
         }[];
         area: number;
@@ -1032,7 +1032,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         comment: string;
         title?: string | null | undefined;
         subtitle?: string | null | undefined;
-        hook?: void | undefined;
+        hook?: unknown;
         comment_full?: string | null | undefined;
     }[];
     area: {
@@ -1191,7 +1191,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment: string;
             title?: string | null | undefined;
             subtitle?: string | null | undefined;
-            hook?: void | undefined;
+            hook?: unknown;
             comment_full?: string | null | undefined;
         }[];
         reference?: unknown;
@@ -1206,7 +1206,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment: string;
             title?: string | null | undefined;
             subtitle?: string | null | undefined;
-            hook?: void | undefined;
+            hook?: unknown;
             comment_full?: string | null | undefined;
         }[];
         area: number;

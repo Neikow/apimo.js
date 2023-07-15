@@ -126,9 +126,10 @@ export const getCommentSchema = (catalogTransformer: CatalogTransformer) =>
         title: z.string().optional().nullable(),
         subtitle: z.string().optional().nullable(),
         hook: z.unknown().transform(v => {
-            if (v !== null) {
+            if (v !== undefined) {
                 console.log(`Unhandled key \`comment.hook\` with value \`${v}\``);
             }
+            return v;
         }),
         comment: z.string(),
         comment_full: z.string().optional().nullable(),
