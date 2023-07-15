@@ -5,7 +5,7 @@ Apimo.js is a Node.js module for interacting with the Apimo API.
 ## Usage
     
 ```javascript
-var Apimo = require('apimo');
+var Apimo = require('apimo.js/dist');
 
 const api = new Apimo(
     '<BRIDGE_ID>',

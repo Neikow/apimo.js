@@ -126,7 +126,7 @@ export const getCommentSchema = (catalogTransformer: CatalogTransformer) =>
         title: z.string().optional().nullable(),
         subtitle: z.string().optional().nullable(),
         hook: z.unknown().transform(v => {
-            if (v !== undefined && v !== 'undefined') {
+            if (v !== null && v !== undefined && v !== 'undefined') {
                 console.log(`Unhandled key \`comment.hook\` with value \`${v}\``);
             }
             return v;
