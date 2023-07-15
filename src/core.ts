@@ -22,17 +22,13 @@ export type PathPart = '$agency$' | string
 
 export default class Apimo {
     static basePath = 'https://api.apimo.pro/';
-
+    public ready = Promise.resolve(false);
     private readonly _debug: boolean = false;
     private readonly _culture: string = 'en';
-
     private catalog: Catalog = {};
     private catalogPromise: Promise<typeof this.catalog>
-
     private properties: Map<string, Property> = new Map();
-
     private agencyPromise: Promise<Agency>;
-
     private _useCache: boolean = false;
 
     constructor(private provider: string, private token: string, settings?: ApimoSettings) {
@@ -55,6 +51,7 @@ export default class Apimo {
 
         Promise.all([this.agencyPromise, this.catalogPromise]).then(() => {
             this.useDebug('📣 Apimo API client initialized');
+            this.ready = Promise.resolve(true);
         });
     }
 

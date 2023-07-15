@@ -15,6 +15,7 @@ export default class Apimo {
     private provider;
     private token;
     static basePath: string;
+    ready: Promise<boolean>;
     private readonly _debug;
     private readonly _culture;
     private catalog;

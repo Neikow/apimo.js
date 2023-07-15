@@ -45,6 +45,7 @@ class Apimo {
         var _a, _b, _c;
         this.provider = provider;
         this.token = token;
+        this.ready = Promise.resolve(false);
         this._debug = false;
         this._culture = 'en';
         this.catalog = {};
@@ -64,6 +65,7 @@ class Apimo {
         }
         Promise.all([this.agencyPromise, this.catalogPromise]).then(() => {
             this.useDebug('📣 Apimo API client initialized');
+            this.ready = Promise.resolve(true);
         });
     }
     static convertDate(s) {
