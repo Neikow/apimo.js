@@ -204,13 +204,15 @@ export const getPropertySchema = (catalogTransformer: (key: string, value: numbe
             agency: z.coerce.number(),
             brand: z.unknown().transform(v => {
                 if (v !== null) {
-                    console.log()
+                    console.log(`Unhandled key \`property.brand\` with value \`${v}\``);
                 }
+                return v;
             }),
             sector: z.unknown().transform(v => {
                 if (v !== null) {
                     console.log(`Unhandled key \`property.sector\` with value \`${v}\``);
                 }
+                return v;
             }),
             user: getUserSchema(catalogTransformer),
             step: z.number().transform(v => catalogTransformer('property_step', v)),
@@ -220,6 +222,7 @@ export const getPropertySchema = (catalogTransformer: (key: string, value: numbe
                 if (v !== null) {
                     console.log(`Unhandled key \`property.ranking\` with value \`${v}\``);
                 }
+                return v;
             }),
             category: z.coerce.number().transform(v => catalogTransformer('property_category', v)),
             name: z.string().nullable(),
@@ -306,18 +309,8 @@ export const getPropertySchema = (catalogTransformer: (key: string, value: numbe
                 }
                 return v;
             }),
-            length: z.unknown().transform(v => {
-                if (v !== null) {
-                    console.log(`Unhandled key \`property.length\` with value \`${v}\``);
-                }
-                return v;
-            }),
-            height: z.unknown().transform(v => {
-                if (v !== null) {
-                    console.log(`Unhandled key \`property.height\` with value \`${v}\``);
-                }
-                return v;
-            }),
+            length: z.number().nullable(),
+            height: z.number().nullable(),
             url: z.string().nullable(),
             availability: z.coerce.number().transform(v => catalogTransformer('property_availability', v)),
             available_at: z.unknown().transform(v => {

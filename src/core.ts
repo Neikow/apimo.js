@@ -304,13 +304,13 @@ export default class Apimo {
 
     private async getCatalogTransformer(): Promise<CatalogTransformer> {
         await this.catalogPromise;
-        return (key: string, value: number): string => {
+        return (key: string, value: number): string | null => {
             if (!(key in this.catalog)) {
                 throw new Error(`🚨 Catalog \`${key}\` not found`);
             }
             const res = this.catalog[key][value]
             if (!res) {
-                return `🚨 Missing key \`${value}\` in catalog \`${key}\``;
+                return null;
             }
             return res.replace(/[ -]/g, '_').replace(/(«_|_»)/g, '').replace('___', '_').toLowerCase();
         }

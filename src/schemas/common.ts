@@ -2,7 +2,7 @@ import {unknown, z} from "zod";
 import Apimo from "../core";
 
 export interface CatalogTransformer {
-    (key: string, value: number): string;
+    (key: string, value: number): string | null;
 }
 
 export const NameIdPairSchema = z.object({
