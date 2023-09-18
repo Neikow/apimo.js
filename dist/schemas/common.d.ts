@@ -1,6 +1,6 @@
 import { z } from "zod";
 export interface CatalogTransformer {
-    (key: string, value: number): string;
+    (key: string, value: number): string | null;
 }
 export declare const NameIdPairSchema: z.ZodObject<{
     id: z.ZodNumber;
@@ -37,7 +37,7 @@ export declare const getUserSchema: (catalogTransformer: CatalogTransformer) => 
     password: z.ZodOptional<z.ZodString>;
     language: z.ZodString;
     spoken_languages: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
-    group: z.ZodEffects<z.ZodNumber, string, number>;
+    group: z.ZodEffects<z.ZodNumber, string | null, number>;
     email: z.ZodString;
     phone: z.ZodNullable<z.ZodString>;
     mobile: z.ZodString;
@@ -67,7 +67,7 @@ export declare const getUserSchema: (catalogTransformer: CatalogTransformer) => 
     firstname: string;
     lastname: string;
     language: string;
-    group: string;
+    group: string | null;
     email: string;
     phone: string | null;
     mobile: string;

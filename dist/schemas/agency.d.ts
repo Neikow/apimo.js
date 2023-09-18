@@ -2,7 +2,7 @@ import { z } from "zod";
 import { CatalogTransformer } from "./common";
 export declare const RateSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
     id: z.ZodNumber;
-    category: z.ZodEffects<z.ZodNumber, string, number>;
+    category: z.ZodEffects<z.ZodNumber, string | null, number>;
     range_min: z.ZodNullable<z.ZodNumber>;
     range_max: z.ZodNullable<z.ZodNumber>;
     commission_price: z.ZodNullable<z.ZodNumber>;
@@ -13,7 +13,7 @@ export declare const RateSchema: (catalogTransformer: CatalogTransformer) => z.Z
     id: number;
     comment: string;
     url: string | null;
-    category: string;
+    category: string | null;
     range_min: number | null;
     range_max: number | null;
     commission_price: number | null;
@@ -101,7 +101,7 @@ export declare const getAgencySchema: (catalogTransformer: CatalogTransformer) =
     providers: z.ZodEffects<z.ZodString, string, string>;
     rates: z.ZodArray<z.ZodObject<{
         id: z.ZodNumber;
-        category: z.ZodEffects<z.ZodNumber, string, number>;
+        category: z.ZodEffects<z.ZodNumber, string | null, number>;
         range_min: z.ZodNullable<z.ZodNumber>;
         range_max: z.ZodNullable<z.ZodNumber>;
         commission_price: z.ZodNullable<z.ZodNumber>;
@@ -112,7 +112,7 @@ export declare const getAgencySchema: (catalogTransformer: CatalogTransformer) =
         id: number;
         comment: string;
         url: string | null;
-        category: string;
+        category: string | null;
         range_min: number | null;
         range_max: number | null;
         commission_price: number | null;
@@ -162,7 +162,7 @@ export declare const getAgencySchema: (catalogTransformer: CatalogTransformer) =
         password: z.ZodOptional<z.ZodString>;
         language: z.ZodString;
         spoken_languages: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
-        group: z.ZodEffects<z.ZodNumber, string, number>;
+        group: z.ZodEffects<z.ZodNumber, string | null, number>;
         email: z.ZodString;
         phone: z.ZodNullable<z.ZodString>;
         mobile: z.ZodString;
@@ -192,7 +192,7 @@ export declare const getAgencySchema: (catalogTransformer: CatalogTransformer) =
         firstname: string;
         lastname: string;
         language: string;
-        group: string;
+        group: string | null;
         email: string;
         phone: string | null;
         mobile: string;
@@ -269,7 +269,7 @@ export declare const getAgencySchema: (catalogTransformer: CatalogTransformer) =
         id: number;
         comment: string;
         url: string | null;
-        category: string;
+        category: string | null;
         range_min: number | null;
         range_max: number | null;
         commission_price: number | null;
@@ -302,7 +302,7 @@ export declare const getAgencySchema: (catalogTransformer: CatalogTransformer) =
         firstname: string;
         lastname: string;
         language: string;
-        group: string;
+        group: string | null;
         email: string;
         phone: string | null;
         mobile: string;

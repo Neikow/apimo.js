@@ -196,7 +196,7 @@ export const getRegulationSchema = (catalogTransformer: CatalogTransformer) =>
         graph: z.string().nullable(),
     });
 
-export const getPropertySchema = (catalogTransformer: (key: string, value: number) => string) =>
+export const getPropertySchema = (catalogTransformer: CatalogTransformer) =>
     z.object(
         {
             id: z.coerce.number(),

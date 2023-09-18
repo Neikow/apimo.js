@@ -7,10 +7,10 @@ export interface ApimoSettings {
     id?: number;
     cacheRequests?: boolean;
 }
-export declare type Catalog = Record<string, Record<number, string>>;
-export declare type Property = z.infer<ReturnType<typeof getPropertySchema>>;
-export declare type Agency = z.infer<ReturnType<typeof getAgencySchema>>;
-export declare type PathPart = '$agency$' | string;
+export type Catalog = Record<string, Record<number, string>>;
+export type Property = z.infer<ReturnType<typeof getPropertySchema>>;
+export type Agency = z.infer<ReturnType<typeof getAgencySchema>>;
+export type PathPart = '$agency$' | string;
 export default class Apimo {
     private provider;
     private token;

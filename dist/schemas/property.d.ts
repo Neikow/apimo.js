@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { CatalogTransformer } from "./common";
 export declare const getAgreementSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    type: z.ZodEffects<z.ZodNumber, string, number>;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
     reference: z.ZodString;
     start_at: z.ZodEffects<z.ZodString, Date, string>;
     end_at: z.ZodEffects<z.ZodString, Date, string>;
 }, "strip", z.ZodTypeAny, {
-    type: string;
+    type: string | null;
     reference: string;
     start_at: Date;
     end_at: Date;
@@ -17,13 +17,13 @@ export declare const getAgreementSchema: (catalogTransformer: CatalogTransformer
     end_at: string;
 }>;
 export declare const getSurfaceSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    unit: z.ZodEffects<z.ZodNumber, string, number>;
+    unit: z.ZodEffects<z.ZodNumber, string | null, number>;
     value: z.ZodNumber;
     total: z.ZodNumber;
     weighted: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
     value: number;
-    unit: string;
+    unit: string | null;
     total: number;
     weighted: number;
 }, {
@@ -56,7 +56,7 @@ export declare const getPriceSchema: (catalogTransformer: CatalogTransformer) =>
     max: z.ZodNumber;
     fees: z.ZodNumber;
     unit: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
-    period: z.ZodEffects<z.ZodNumber, string, number>;
+    period: z.ZodEffects<z.ZodNumber, string | null, number>;
     hide: z.ZodBoolean;
     inventory: z.ZodNullable<z.ZodNumber>;
     deposit: z.ZodNullable<z.ZodNumber>;
@@ -71,7 +71,7 @@ export declare const getPriceSchema: (catalogTransformer: CatalogTransformer) =>
     value: number;
     max: number;
     fees: number;
-    period: string;
+    period: string | null;
     hide: boolean;
     inventory: number | null;
     deposit: number | null;
@@ -102,15 +102,15 @@ export declare const getPriceSchema: (catalogTransformer: CatalogTransformer) =>
 }>;
 export declare const getResidenceSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
     id: z.ZodNumber;
-    type: z.ZodEffects<z.ZodNumber, string, number>;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
     fees: z.ZodNumber;
-    period: z.ZodEffects<z.ZodNumber, string, number>;
+    period: z.ZodEffects<z.ZodNumber, string | null, number>;
     lots: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
     id: number;
-    type: string;
+    type: string | null;
     fees: number;
-    period: string;
+    period: string | null;
     lots: number;
 }, {
     id: number;
@@ -120,27 +120,27 @@ export declare const getResidenceSchema: (catalogTransformer: CatalogTransformer
     lots: number;
 }>;
 export declare const getViewSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    type: z.ZodEffects<z.ZodNumber, string, number>;
-    landscape: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
+    landscape: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
 }, "strip", z.ZodTypeAny, {
-    type: string;
-    landscape: string[];
+    type: string | null;
+    landscape: (string | null)[];
 }, {
     type: number;
     landscape: number[];
 }>;
 export declare const getConstructionSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    type: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">>;
+    type: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">>;
     construction_year: z.ZodNumber;
     renovation_year: z.ZodNumber;
     renovation_cost: z.ZodNumber;
-    construction_step: z.ZodEffects<z.ZodNumber, string, number>;
+    construction_step: z.ZodEffects<z.ZodNumber, string | null, number>;
 }, "strip", z.ZodTypeAny, {
     construction_year: number;
     renovation_year: number;
     renovation_cost: number;
-    construction_step: string;
-    type?: string[] | undefined;
+    construction_step: string | null;
+    type?: (string | null)[] | undefined;
 }, {
     construction_year: number;
     renovation_year: number;
@@ -149,12 +149,12 @@ export declare const getConstructionSchema: (catalogTransformer: CatalogTransfor
     type?: number[] | undefined;
 }>;
 export declare const getFloorSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    type: z.ZodEffects<z.ZodNumber, string, number>;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
     value: z.ZodNumber;
     levels: z.ZodNumber;
     floors: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
-    type: string;
+    type: string | null;
     value: number;
     levels: number;
     floors: number;
@@ -165,17 +165,17 @@ export declare const getFloorSchema: (catalogTransformer: CatalogTransformer) =>
     floors: number;
 }>;
 export declare const getHeatingSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    device: z.ZodEffects<z.ZodNumber, string, number>;
-    devices: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">>;
-    access: z.ZodEffects<z.ZodNumber, string, number>;
-    type: z.ZodEffects<z.ZodNumber, string, number>;
-    types: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">>;
+    device: z.ZodEffects<z.ZodNumber, string | null, number>;
+    devices: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">>;
+    access: z.ZodEffects<z.ZodNumber, string | null, number>;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
+    types: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">>;
 }, "strip", z.ZodTypeAny, {
-    type: string;
-    device: string;
-    devices: string[] | null;
-    access: string;
-    types: string[] | null;
+    type: string | null;
+    device: string | null;
+    devices: (string | null)[] | null;
+    access: string | null;
+    types: (string | null)[] | null;
 }, {
     type: number;
     device: number;
@@ -184,13 +184,13 @@ export declare const getHeatingSchema: (catalogTransformer: CatalogTransformer) 
     types: number[] | null;
 }>;
 export declare const getWaterSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    hot_device: z.ZodEffects<z.ZodNumber, string, number>;
-    hot_access: z.ZodEffects<z.ZodNumber, string, number>;
-    waste: z.ZodEffects<z.ZodNumber, string, number>;
+    hot_device: z.ZodEffects<z.ZodNumber, string | null, number>;
+    hot_access: z.ZodEffects<z.ZodNumber, string | null, number>;
+    waste: z.ZodEffects<z.ZodNumber, string | null, number>;
 }, "strip", z.ZodTypeAny, {
-    hot_device: string;
-    hot_access: string;
-    waste: string;
+    hot_device: string | null;
+    hot_access: string | null;
+    waste: string | null;
 }, {
     hot_device: number;
     hot_access: number;
@@ -291,22 +291,22 @@ export declare const getPictureSchema: (catalogTransformer: CatalogTransformer) 
     reference?: unknown;
 }>;
 export declare const getAreaSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    type: z.ZodEffects<z.ZodNumber, string, number>;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
     number: z.ZodNumber;
     area: z.ZodNumber;
-    flooring: z.ZodEffects<z.ZodNumber, string, number>;
+    flooring: z.ZodEffects<z.ZodNumber, string | null, number>;
     ceiling_height: z.ZodNullable<z.ZodNumber>;
     floor: z.ZodObject<{
-        type: z.ZodEffects<z.ZodNumber, string, number>;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
         value: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
-        type: string;
+        type: string | null;
         value: number;
     }, {
         type: number;
         value: number;
     }>;
-    orientations: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
+    orientations: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
     comments: z.ZodArray<z.ZodObject<{
         language: z.ZodString;
         title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -344,7 +344,7 @@ export declare const getAreaSchema: (catalogTransformer: CatalogTransformer) => 
     }>;
 }, "strip", z.ZodTypeAny, {
     number: number;
-    type: string;
+    type: string | null;
     comments: {
         language: string;
         comment: string;
@@ -354,13 +354,13 @@ export declare const getAreaSchema: (catalogTransformer: CatalogTransformer) => 
         comment_full?: string | null | undefined;
     }[];
     area: number;
-    flooring: string;
+    flooring: string | null;
     ceiling_height: number | null;
     floor: {
-        type: string;
+        type: string | null;
         value: number;
     };
-    orientations: string[];
+    orientations: (string | null)[];
     lot: {
         name: unknown[];
         type?: unknown;
@@ -392,12 +392,12 @@ export declare const getAreaSchema: (catalogTransformer: CatalogTransformer) => 
     };
 }>;
 export declare const getRegulationSchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
-    type: z.ZodEffects<z.ZodNumber, string, number>;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
     value: z.ZodEffects<z.ZodString, number[], string>;
     date: z.ZodNullable<z.ZodEffects<z.ZodString, Date, string>>;
     graph: z.ZodNullable<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    type: string;
+    type: string | null;
     value: number[];
     date: Date | null;
     graph: string | null;
@@ -407,12 +407,12 @@ export declare const getRegulationSchema: (catalogTransformer: CatalogTransforme
     date: string | null;
     graph: string | null;
 }>;
-export declare const getPropertySchema: (catalogTransformer: (key: string, value: number) => string) => z.ZodObject<{
+export declare const getPropertySchema: (catalogTransformer: CatalogTransformer) => z.ZodObject<{
     id: z.ZodNumber;
     reference: z.ZodNumber;
     agency: z.ZodNumber;
-    brand: z.ZodEffects<z.ZodUnknown, void, unknown>;
-    sector: z.ZodEffects<z.ZodUnknown, void, unknown>;
+    brand: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
+    sector: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
     user: z.ZodObject<{
         id: z.ZodNumber;
         agency: z.ZodNumber;
@@ -425,7 +425,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         password: z.ZodOptional<z.ZodString>;
         language: z.ZodString;
         spoken_languages: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
-        group: z.ZodEffects<z.ZodNumber, string, number>;
+        group: z.ZodEffects<z.ZodNumber, string | null, number>;
         email: z.ZodString;
         phone: z.ZodNullable<z.ZodString>;
         mobile: z.ZodString;
@@ -455,7 +455,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         firstname: string;
         lastname: string;
         language: string;
-        group: string;
+        group: string | null;
         email: string;
         phone: string | null;
         mobile: string;
@@ -501,21 +501,21 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         stories?: unknown[] | undefined;
         rates?: unknown;
     }>;
-    step: z.ZodEffects<z.ZodNumber, string, number>;
-    status: z.ZodEffects<z.ZodNumber, string, number>;
+    step: z.ZodEffects<z.ZodNumber, string | null, number>;
+    status: z.ZodEffects<z.ZodNumber, string | null, number>;
     parent: z.ZodNullable<z.ZodNumber>;
-    ranking: z.ZodEffects<z.ZodUnknown, void, unknown>;
-    category: z.ZodEffects<z.ZodNumber, string, number>;
+    ranking: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
+    category: z.ZodEffects<z.ZodNumber, string | null, number>;
     name: z.ZodNullable<z.ZodString>;
-    type: z.ZodEffects<z.ZodNumber, string, number>;
-    subtype: z.ZodEffects<z.ZodNumber, string, number>;
+    type: z.ZodEffects<z.ZodNumber, string | null, number>;
+    subtype: z.ZodEffects<z.ZodNumber, string | null, number>;
     agreement: z.ZodNullable<z.ZodObject<{
-        type: z.ZodEffects<z.ZodNumber, string, number>;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
         reference: z.ZodString;
         start_at: z.ZodEffects<z.ZodString, Date, string>;
         end_at: z.ZodEffects<z.ZodString, Date, string>;
     }, "strip", z.ZodTypeAny, {
-        type: string;
+        type: string | null;
         reference: string;
         start_at: Date;
         end_at: Date;
@@ -576,13 +576,13 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     referral: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
     subreferral: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
     area: z.ZodObject<{
-        unit: z.ZodEffects<z.ZodNumber, string, number>;
+        unit: z.ZodEffects<z.ZodNumber, string | null, number>;
         value: z.ZodNumber;
         total: z.ZodNumber;
         weighted: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
         value: number;
-        unit: string;
+        unit: string | null;
         total: number;
         weighted: number;
     }, {
@@ -618,7 +618,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         max: z.ZodNumber;
         fees: z.ZodNumber;
         unit: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
-        period: z.ZodEffects<z.ZodNumber, string, number>;
+        period: z.ZodEffects<z.ZodNumber, string | null, number>;
         hide: z.ZodBoolean;
         inventory: z.ZodNullable<z.ZodNumber>;
         deposit: z.ZodNullable<z.ZodNumber>;
@@ -633,7 +633,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         value: number;
         max: number;
         fees: number;
-        period: string;
+        period: string | null;
         hide: boolean;
         inventory: number | null;
         deposit: number | null;
@@ -667,15 +667,15 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     visit: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
     residence: z.ZodNullable<z.ZodObject<{
         id: z.ZodNumber;
-        type: z.ZodEffects<z.ZodNumber, string, number>;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
         fees: z.ZodNumber;
-        period: z.ZodEffects<z.ZodNumber, string, number>;
+        period: z.ZodEffects<z.ZodNumber, string | null, number>;
         lots: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
         id: number;
-        type: string;
+        type: string | null;
         fees: number;
-        period: string;
+        period: string | null;
         lots: number;
     }, {
         id: number;
@@ -685,27 +685,27 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         lots: number;
     }>>;
     view: z.ZodNullable<z.ZodObject<{
-        type: z.ZodEffects<z.ZodNumber, string, number>;
-        landscape: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
+        landscape: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
     }, "strip", z.ZodTypeAny, {
-        type: string;
-        landscape: string[];
+        type: string | null;
+        landscape: (string | null)[];
     }, {
         type: number;
         landscape: number[];
     }>>;
     construction: z.ZodObject<{
-        type: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">>;
+        type: z.ZodOptional<z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">>;
         construction_year: z.ZodNumber;
         renovation_year: z.ZodNumber;
         renovation_cost: z.ZodNumber;
-        construction_step: z.ZodEffects<z.ZodNumber, string, number>;
+        construction_step: z.ZodEffects<z.ZodNumber, string | null, number>;
     }, "strip", z.ZodTypeAny, {
         construction_year: number;
         renovation_year: number;
         renovation_cost: number;
-        construction_step: string;
-        type?: string[] | undefined;
+        construction_step: string | null;
+        type?: (string | null)[] | undefined;
     }, {
         construction_year: number;
         renovation_year: number;
@@ -714,12 +714,12 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         type?: number[] | undefined;
     }>;
     floor: z.ZodObject<{
-        type: z.ZodEffects<z.ZodNumber, string, number>;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
         value: z.ZodNumber;
         levels: z.ZodNumber;
         floors: z.ZodNumber;
     }, "strip", z.ZodTypeAny, {
-        type: string;
+        type: string | null;
         value: number;
         levels: number;
         floors: number;
@@ -730,17 +730,17 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         floors: number;
     }>;
     heating: z.ZodObject<{
-        device: z.ZodEffects<z.ZodNumber, string, number>;
-        devices: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">>;
-        access: z.ZodEffects<z.ZodNumber, string, number>;
-        type: z.ZodEffects<z.ZodNumber, string, number>;
-        types: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">>;
+        device: z.ZodEffects<z.ZodNumber, string | null, number>;
+        devices: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">>;
+        access: z.ZodEffects<z.ZodNumber, string | null, number>;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
+        types: z.ZodNullable<z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">>;
     }, "strip", z.ZodTypeAny, {
-        type: string;
-        device: string;
-        devices: string[] | null;
-        access: string;
-        types: string[] | null;
+        type: string | null;
+        device: string | null;
+        devices: (string | null)[] | null;
+        access: string | null;
+        types: (string | null)[] | null;
     }, {
         type: number;
         device: number;
@@ -749,20 +749,20 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         types: number[] | null;
     }>;
     water: z.ZodObject<{
-        hot_device: z.ZodEffects<z.ZodNumber, string, number>;
-        hot_access: z.ZodEffects<z.ZodNumber, string, number>;
-        waste: z.ZodEffects<z.ZodNumber, string, number>;
+        hot_device: z.ZodEffects<z.ZodNumber, string | null, number>;
+        hot_access: z.ZodEffects<z.ZodNumber, string | null, number>;
+        waste: z.ZodEffects<z.ZodNumber, string | null, number>;
     }, "strip", z.ZodTypeAny, {
-        hot_device: string;
-        hot_access: string;
-        waste: string;
+        hot_device: string | null;
+        hot_access: string | null;
+        waste: string | null;
     }, {
         hot_device: number;
         hot_access: number;
         waste: number;
     }>;
-    condition: z.ZodEffects<z.ZodNumber, string, number>;
-    standing: z.ZodEffects<z.ZodNumber, string, number>;
+    condition: z.ZodEffects<z.ZodNumber, string | null, number>;
+    standing: z.ZodEffects<z.ZodNumber, string | null, number>;
     style: z.ZodObject<{
         name: z.ZodNullable<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
@@ -772,17 +772,17 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     }>;
     twinned: z.ZodNullable<z.ZodNumber>;
     facades: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
-    length: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
-    height: z.ZodEffects<z.ZodUnknown, unknown, unknown>;
+    length: z.ZodNullable<z.ZodNumber>;
+    height: z.ZodNullable<z.ZodNumber>;
     url: z.ZodNullable<z.ZodString>;
-    availability: z.ZodEffects<z.ZodNumber, string, number>;
+    availability: z.ZodEffects<z.ZodNumber, string | null, number>;
     available_at: z.ZodEffects<z.ZodUnknown, void | null, unknown>;
     delivered_at: z.ZodNullable<z.ZodEffects<z.ZodString, Date, string>>;
-    activities: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
-    orientations: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
-    services: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
-    proximities: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
-    tags: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
+    activities: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
+    orientations: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
+    services: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
+    proximities: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
+    tags: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
     tags_customized: z.ZodArray<z.ZodUnknown, "many">;
     pictures: z.ZodArray<z.ZodObject<{
         id: z.ZodNumber;
@@ -881,22 +881,22 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         comment_full?: string | null | undefined;
     }>, "many">;
     areas: z.ZodArray<z.ZodObject<{
-        type: z.ZodEffects<z.ZodNumber, string, number>;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
         number: z.ZodNumber;
         area: z.ZodNumber;
-        flooring: z.ZodEffects<z.ZodNumber, string, number>;
+        flooring: z.ZodEffects<z.ZodNumber, string | null, number>;
         ceiling_height: z.ZodNullable<z.ZodNumber>;
         floor: z.ZodObject<{
-            type: z.ZodEffects<z.ZodNumber, string, number>;
+            type: z.ZodEffects<z.ZodNumber, string | null, number>;
             value: z.ZodNumber;
         }, "strip", z.ZodTypeAny, {
-            type: string;
+            type: string | null;
             value: number;
         }, {
             type: number;
             value: number;
         }>;
-        orientations: z.ZodArray<z.ZodEffects<z.ZodNumber, string, number>, "many">;
+        orientations: z.ZodArray<z.ZodEffects<z.ZodNumber, string | null, number>, "many">;
         comments: z.ZodArray<z.ZodObject<{
             language: z.ZodString;
             title: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -934,7 +934,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         }>;
     }, "strip", z.ZodTypeAny, {
         number: number;
-        type: string;
+        type: string | null;
         comments: {
             language: string;
             comment: string;
@@ -944,13 +944,13 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment_full?: string | null | undefined;
         }[];
         area: number;
-        flooring: string;
+        flooring: string | null;
         ceiling_height: number | null;
         floor: {
-            type: string;
+            type: string | null;
             value: number;
         };
-        orientations: string[];
+        orientations: (string | null)[];
         lot: {
             name: unknown[];
             type?: unknown;
@@ -982,12 +982,12 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         };
     }>, "many">;
     regulations: z.ZodArray<z.ZodObject<{
-        type: z.ZodEffects<z.ZodNumber, string, number>;
+        type: z.ZodEffects<z.ZodNumber, string | null, number>;
         value: z.ZodEffects<z.ZodString, number[], string>;
         date: z.ZodNullable<z.ZodEffects<z.ZodString, Date, string>>;
         graph: z.ZodNullable<z.ZodString>;
     }, "strip", z.ZodTypeAny, {
-        type: string;
+        type: string | null;
         value: number[];
         date: Date | null;
         graph: string | null;
@@ -1013,9 +1013,10 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
 }, "strip", z.ZodTypeAny, {
     id: number;
     name: string | null;
+    length: number | null;
     options: unknown[];
-    type: string;
-    status: string;
+    type: string | null;
+    status: string | null;
     agency: number;
     created_at: Date;
     updated_at: Date;
@@ -1026,6 +1027,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     };
     rates: unknown[];
     reference: number;
+    height: number | null;
     url: string | null;
     comments: {
         language: string;
@@ -1037,17 +1039,17 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     }[];
     area: {
         value: number;
-        unit: string;
+        unit: string | null;
         total: number;
         weighted: number;
     };
     floor: {
-        type: string;
+        type: string | null;
         value: number;
         levels: number;
         floors: number;
     };
-    orientations: string[];
+    orientations: (string | null)[];
     user: {
         id: number;
         agency: number;
@@ -1057,7 +1059,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         firstname: string;
         lastname: string;
         language: string;
-        group: string;
+        group: string | null;
         email: string;
         phone: string | null;
         mobile: string;
@@ -1076,12 +1078,12 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         stories?: unknown[] | undefined;
         rates?: unknown;
     };
-    step: string;
+    step: string | null;
     parent: number | null;
-    category: string;
-    subtype: string;
+    category: string | null;
+    subtype: string | null;
     agreement: {
-        type: string;
+        type: string | null;
         reference: string;
         start_at: Date;
         end_at: Date;
@@ -1120,7 +1122,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         value: number;
         max: number;
         fees: number;
-        period: string;
+        period: string | null;
         hide: boolean;
         inventory: number | null;
         deposit: number | null;
@@ -1135,46 +1137,46 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     };
     residence: {
         id: number;
-        type: string;
+        type: string | null;
         fees: number;
-        period: string;
+        period: string | null;
         lots: number;
     } | null;
     view: {
-        type: string;
-        landscape: string[];
+        type: string | null;
+        landscape: (string | null)[];
     } | null;
     construction: {
         construction_year: number;
         renovation_year: number;
         renovation_cost: number;
-        construction_step: string;
-        type?: string[] | undefined;
+        construction_step: string | null;
+        type?: (string | null)[] | undefined;
     };
     heating: {
-        type: string;
-        device: string;
-        devices: string[] | null;
-        access: string;
-        types: string[] | null;
+        type: string | null;
+        device: string | null;
+        devices: (string | null)[] | null;
+        access: string | null;
+        types: (string | null)[] | null;
     };
     water: {
-        hot_device: string;
-        hot_access: string;
-        waste: string;
+        hot_device: string | null;
+        hot_access: string | null;
+        waste: string | null;
     };
-    condition: string;
-    standing: string;
+    condition: string | null;
+    standing: string | null;
     style: {
         name: string | null;
     };
     twinned: number | null;
-    availability: string;
+    availability: string | null;
     delivered_at: Date | null;
-    activities: string[];
-    services: string[];
-    proximities: string[];
-    tags: string[];
+    activities: (string | null)[];
+    services: (string | null)[];
+    proximities: (string | null)[];
+    tags: (string | null)[];
     tags_customized: unknown[];
     pictures: {
         id: number;
@@ -1200,7 +1202,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     documents: unknown[];
     areas: {
         number: number;
-        type: string;
+        type: string | null;
         comments: {
             language: string;
             comment: string;
@@ -1210,13 +1212,13 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
             comment_full?: string | null | undefined;
         }[];
         area: number;
-        flooring: string;
+        flooring: string | null;
         ceiling_height: number | null;
         floor: {
-            type: string;
+            type: string | null;
             value: number;
         };
-        orientations: string[];
+        orientations: (string | null)[];
         lot: {
             name: unknown[];
             type?: unknown;
@@ -1224,7 +1226,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
         };
     }[];
     regulations: {
-        type: string;
+        type: string | null;
         value: number[];
         date: Date | null;
         graph: string | null;
@@ -1235,9 +1237,9 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     referrals: unknown[];
     created_by: number;
     updated_by: number;
-    brand?: void | undefined;
-    sector?: void | undefined;
-    ranking?: void | undefined;
+    brand?: unknown;
+    sector?: unknown;
+    ranking?: unknown;
     original_city?: unknown;
     original_district?: unknown;
     location?: unknown;
@@ -1246,8 +1248,6 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     owner?: unknown;
     visit?: unknown;
     facades?: unknown;
-    length?: unknown;
-    height?: unknown;
     available_at?: void | null | undefined;
     filling_rate?: unknown;
     private_comment?: unknown;
@@ -1256,6 +1256,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
 }, {
     id: number;
     name: string | null;
+    length: number | null;
     options: unknown[];
     type: number;
     status: number;
@@ -1269,6 +1270,7 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     };
     rates: unknown[];
     reference: number;
+    height: number | null;
     url: string | null;
     comments: {
         language: string;
@@ -1489,8 +1491,6 @@ export declare const getPropertySchema: (catalogTransformer: (key: string, value
     owner?: unknown;
     visit?: unknown;
     facades?: unknown;
-    length?: unknown;
-    height?: unknown;
     available_at?: unknown;
     filling_rate?: unknown;
     private_comment?: unknown;

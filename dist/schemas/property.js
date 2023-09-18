@@ -193,13 +193,15 @@ const getPropertySchema = (catalogTransformer) => zod_1.z.object({
     agency: zod_1.z.coerce.number(),
     brand: zod_1.z.unknown().transform(v => {
         if (v !== null) {
-            console.log();
+            console.log(`Unhandled key \`property.brand\` with value \`${v}\``);
         }
+        return v;
     }),
     sector: zod_1.z.unknown().transform(v => {
         if (v !== null) {
             console.log(`Unhandled key \`property.sector\` with value \`${v}\``);
         }
+        return v;
     }),
     user: (0, common_1.getUserSchema)(catalogTransformer),
     step: zod_1.z.number().transform(v => catalogTransformer('property_step', v)),
@@ -209,6 +211,7 @@ const getPropertySchema = (catalogTransformer) => zod_1.z.object({
         if (v !== null) {
             console.log(`Unhandled key \`property.ranking\` with value \`${v}\``);
         }
+        return v;
     }),
     category: zod_1.z.coerce.number().transform(v => catalogTransformer('property_category', v)),
     name: zod_1.z.string().nullable(),
@@ -295,18 +298,8 @@ const getPropertySchema = (catalogTransformer) => zod_1.z.object({
         }
         return v;
     }),
-    length: zod_1.z.unknown().transform(v => {
-        if (v !== null) {
-            console.log(`Unhandled key \`property.length\` with value \`${v}\``);
-        }
-        return v;
-    }),
-    height: zod_1.z.unknown().transform(v => {
-        if (v !== null) {
-            console.log(`Unhandled key \`property.height\` with value \`${v}\``);
-        }
-        return v;
-    }),
+    length: zod_1.z.number().nullable(),
+    height: zod_1.z.number().nullable(),
     url: zod_1.z.string().nullable(),
     availability: zod_1.z.coerce.number().transform(v => catalogTransformer('property_availability', v)),
     available_at: zod_1.z.unknown().transform(v => {
