@@ -192,7 +192,7 @@ export default class Apimo {
         const json = await this.get(['agencies']);
         const result = z.object({
             total_items: z.number(),
-            agencies: await getAgencySchema(await this.getCatalogTransformer()).array(),
+            agencies: getAgencySchema(await this.getCatalogTransformer()).array(),
         });
 
         return result.parse(json).agencies;
@@ -207,6 +207,7 @@ export default class Apimo {
             processing_time: z.number(),
             properties: getPropertySchema(await this.getCatalogTransformer()).array(),
         }).parse(response);
+
 
         return result.properties;
     }
