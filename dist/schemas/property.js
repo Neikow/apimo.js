@@ -298,8 +298,8 @@ const getPropertySchema = (catalogTransformer) => zod_1.z.object({
         }
         return v;
     }),
-    length: zod_1.z.number().nullable(),
-    height: zod_1.z.number().nullable(),
+    length: zod_1.z.coerce.number().nullable(),
+    height: zod_1.z.coerce.number().nullable(),
     url: zod_1.z.string().nullable(),
     availability: zod_1.z.coerce.number().transform(v => catalogTransformer('property_availability', v)),
     available_at: zod_1.z.unknown().transform(v => {

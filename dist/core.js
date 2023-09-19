@@ -185,7 +185,7 @@ class Apimo {
             const json = yield this.get(['agencies']);
             const result = zod_1.z.object({
                 total_items: zod_1.z.number(),
-                agencies: yield (0, agency_1.getAgencySchema)(yield this.getCatalogTransformer()).array(),
+                agencies: (0, agency_1.getAgencySchema)(yield this.getCatalogTransformer()).array(),
             });
             return result.parse(json).agencies;
         });
