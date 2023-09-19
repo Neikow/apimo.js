@@ -309,8 +309,8 @@ export const getPropertySchema = (catalogTransformer: CatalogTransformer) =>
                 }
                 return v;
             }),
-            length: z.number().nullable(),
-            height: z.number().nullable(),
+            length: z.coerce.number().nullable(),
+            height: z.coerce.number().nullable(),
             url: z.string().nullable(),
             availability: z.coerce.number().transform(v => catalogTransformer('property_availability', v)),
             available_at: z.unknown().transform(v => {

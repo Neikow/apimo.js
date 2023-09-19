@@ -208,7 +208,6 @@ export default class Apimo {
             properties: getPropertySchema(await this.getCatalogTransformer()).array(),
         }).parse(response);
 
-
         return result.properties;
     }
 
