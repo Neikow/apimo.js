@@ -28,8 +28,8 @@ export default class Apimo {
     private catalog: Catalog = {};
     private catalogPromise: Promise<typeof this.catalog>
     private properties: Map<string, Property> = new Map();
-    private agencyPromise: Promise<Agency>;
-    private _useCache: boolean = false;
+    private readonly agencyPromise: Promise<Agency>;
+    private readonly _useCache: boolean = false;
 
     constructor(private provider: string, private token: string, settings?: ApimoSettings) {
         this._debug = settings?.debug ?? false;
@@ -131,7 +131,31 @@ export default class Apimo {
         return json;
     }
 
-    public async fetchCatalog(): Promise<Catalog> {
+
+    public async getAgencies(): Promise<Agency[]> {
+        const json = await this.get(['agencies']);
+        const result = z.object({
+            total_items: z.number(),
+            agencies: getAgencySchema(await this.getCatalogTransformer()).array(),
+        });
+
+        return result.parse(json).agencies;
+    }
+
+    public async getProperties(): Promise<Property[]> {
+        const response = await this.get(['agencies', '$agency$', 'properties']);
+
+        const result = z.object({
+            total_items: z.number(),
+            timestamp: z.number(),
+            processing_time: z.number(),
+            properties: getPropertySchema(await this.getCatalogTransformer()).array(),
+        }).parse(response);
+
+        return result.properties;
+    }
+
+    private async fetchCatalog(): Promise<Catalog> {
         const startTime = Date.now();
         this.useDebug('📁 Fetching catalogs from API');
 
@@ -186,29 +210,6 @@ export default class Apimo {
         this.useDebug('📁 Loaded catalogs from API in ' + (endTime - startTime) + 'ms');
 
         return catalog;
-    }
-
-    public async getAgencies(): Promise<Agency[]> {
-        const json = await this.get(['agencies']);
-        const result = z.object({
-            total_items: z.number(),
-            agencies: getAgencySchema(await this.getCatalogTransformer()).array(),
-        });
-
-        return result.parse(json).agencies;
-    }
-
-    public async getProperties(): Promise<Property[]> {
-        const response = await this.get(['agencies', '$agency$', 'properties']);
-
-        const result = z.object({
-            total_items: z.number(),
-            timestamp: z.number(),
-            processing_time: z.number(),
-            properties: getPropertySchema(await this.getCatalogTransformer()).array(),
-        }).parse(response);
-
-        return result.properties;
     }
 
     private useDebug(...msg: any[]) {
