@@ -27,9 +27,9 @@ yarn add apimo.js
 ## Quick Start
 
 ```typescript
-import {Api} from 'apimo.js'
+import {Apimo} from 'apimo.js'
 
-const api = new Api(
+const api = new Apimo(
   'YOUR_BRIDGE_ID',     // Get from Apimo support
   'YOUR_API_TOKEN',     // Get from Apimo support
   {
@@ -61,7 +61,7 @@ const agencies = await api.getAgencies()
 ### Basic Configuration
 
 ```typescript
-const api = new Api(bridgeId, token, {
+const api = new Apimo(bridgeId, token, {
   baseUrl: 'https://api.apimo.pro',  // API base URL
   culture: 'en',                     // Default language (en, fr)
   catalogs: {
@@ -84,7 +84,7 @@ const api = new Api(bridgeId, token, {
 ```typescript
 import {MemoryCache} from 'apimo.js'
 
-const api = new Api(bridgeId, token, {
+const api = new Apimo(bridgeId, token, {
   catalogs: {
     cache: {
       adapter: new MemoryCache()
@@ -98,7 +98,7 @@ const api = new Api(bridgeId, token, {
 ```typescript
 import {FilesystemCache} from 'apimo.js'
 
-const api = new Api(bridgeId, token, {
+const api = new Apimo(bridgeId, token, {
   catalogs: {
     cache: {
       adapter: new FilesystemCache('./cache')
@@ -112,7 +112,7 @@ const api = new Api(bridgeId, token, {
 ```typescript
 import {DummyCache} from 'apimo.js'
 
-const api = new Api(bridgeId, token, {
+const api = new Apimo(bridgeId, token, {
   catalogs: {
     cache: {
       adapter: new DummyCache()
@@ -261,7 +261,7 @@ const customTransformer = async (catalogName, culture, id) => {
   return await myCustomCatalogLookup(catalogName, culture, id)
 }
 
-const api = new Api(bridgeId, token, {
+const api = new Apimo(bridgeId, token, {
   catalogs: {
     transform: {
       active: true,

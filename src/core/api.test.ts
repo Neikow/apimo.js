@@ -1,11 +1,11 @@
-import type { MockedFunction } from 'vitest'
-import type { CatalogName } from '../consts/catalogs'
-import type { ApiCulture } from '../consts/languages'
-import { afterEach, beforeEach, it as defaultIt, describe, expect, vi } from 'vitest'
-import { z } from 'zod'
-import { DummyCache } from '../services/storage/dummy.cache'
-import { MemoryCache } from '../services/storage/memory.cache'
-import { Api, DEFAULT_BASE_URL } from './api'
+import type {MockedFunction} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it as defaultIt, vi} from 'vitest'
+import type {CatalogName} from '../consts/catalogs'
+import type {ApiCulture} from '../consts/languages'
+import {z} from 'zod'
+import {DummyCache} from '../services/storage/dummy.cache'
+import {MemoryCache} from '../services/storage/memory.cache'
+import {Apimo, DEFAULT_BASE_URL} from './api'
 
 // Mock fetch globally
 const mockFetch = vi.fn() as MockedFunction<typeof fetch>
@@ -26,12 +26,12 @@ const BasicAuthHeaders = {
 }
 
 const it = defaultIt.extend<{
-  api: Api
+  api: Apimo
   mockResponse: ResponseMocker
 }>({
   // eslint-disable-next-line no-empty-pattern
   api: async ({}, use) => {
-    let api: Api | null = new Api('0', 'TOKEN', {
+    let api: Apimo | null = new Apimo('0', 'TOKEN', {
       catalogs: {
         transform: {
           active: false,
@@ -101,11 +101,11 @@ describe('api', () => {
   })
 
   describe('constructor', () => {
-    it('should accept a provider, a token and a base config', ({ api }) => {
-      expect(api).toBeInstanceOf(Api)
+    it('should accept a provider, a token and a base config', ({api}) => {
+      expect(api).toBeInstanceOf(Apimo)
     })
 
-    it('should use default config when no additional config provided', ({ api }) => {
+    it('should use default config when no additional config provided', ({api}) => {
       expect(api.config).toStrictEqual({
         baseUrl: DEFAULT_BASE_URL,
         culture: 'en' as ApiCulture,
@@ -122,7 +122,7 @@ describe('api', () => {
     })
 
     it('should merge custom config with defaults', () => {
-      const testApi = new Api('provider', 'token', {
+      const testApi = new Apimo('provider', 'token', {
         baseUrl: 'https://custom.api.com',
         culture: 'fr' as ApiCulture,
         catalogs: {
@@ -149,7 +149,7 @@ describe('api', () => {
     })
 
     it('should use provided cache adapter', () => {
-      const testApi = new Api('provider', 'token', {
+      const testApi = new Apimo('provider', 'token', {
         catalogs: {
           cache: {
             adapter: new DummyCache(),
@@ -160,7 +160,7 @@ describe('api', () => {
     })
 
     it('should use DummyCache when cache is not active', () => {
-      const testApi = new Api('provider', 'token', {
+      const testApi = new Apimo('provider', 'token', {
         catalogs: {
           cache: {
             active: false,
@@ -174,7 +174,7 @@ describe('api', () => {
 
   describe('fetch', () => {
     it('should have the right authorization headers when fetching', async () => {
-      const testApi = new Api('provider', 'token')
+      const testApi = new Apimo('provider', 'token')
       await testApi.fetch(DEFAULT_BASE_URL)
 
       expect(mockFetch).toHaveBeenCalledExactlyOnceWith(
@@ -187,9 +187,9 @@ describe('api', () => {
       )
     })
 
-    it('should merge additional headers with authorization', async ({ api }) => {
-      const customHeaders = { 'Content-Type': 'application/json' }
-      await api.fetch(DEFAULT_BASE_URL, { headers: customHeaders })
+    it('should merge additional headers with authorization', async ({api}) => {
+      const customHeaders = {'Content-Type': 'application/json'}
+      await api.fetch(DEFAULT_BASE_URL, {headers: customHeaders})
 
       expect(mockFetch).toHaveBeenCalledWith(
         DEFAULT_BASE_URL,
@@ -202,11 +202,11 @@ describe('api', () => {
       )
     })
 
-    it('should pass through other fetch options', async ({ api }) => {
+    it('should pass through other fetch options', async ({api}) => {
       const options = {
         method: 'POST',
-        body: JSON.stringify({ test: 'data' }),
-        headers: { 'Custom-Header': 'value' },
+        body: JSON.stringify({test: 'data'}),
+        headers: {'Custom-Header': 'value'},
       }
 
       await api.fetch(DEFAULT_BASE_URL, options)
@@ -215,7 +215,7 @@ describe('api', () => {
         DEFAULT_BASE_URL,
         {
           method: 'POST',
-          body: JSON.stringify({ test: 'data' }),
+          body: JSON.stringify({test: 'data'}),
           headers: {
             ...BasicAuthHeaders,
             'Custom-Header': 'value',
@@ -224,9 +224,9 @@ describe('api', () => {
       )
     })
 
-    it('should handle rate limiting with Bottleneck', async ({ api }) => {
+    it('should handle rate limiting with Bottleneck', async ({api}) => {
       // Make multiple concurrent requests to test rate limiting
-      const promises = Array.from({ length: 3 }, () => api.fetch(DEFAULT_BASE_URL))
+      const promises = Array.from({length: 3}, () => api.fetch(DEFAULT_BASE_URL))
       await Promise.all(promises)
 
       expect(mockFetch).toHaveBeenCalledTimes(3)
@@ -234,13 +234,13 @@ describe('api', () => {
   })
 
   describe('get', () => {
-    it('should fetch and parse according to the specified schema', async ({ mockResponse, api }) => {
+    it('should fetch and parse according to the specified schema', async ({mockResponse, api}) => {
       mockResponse({
-        json: () => ({ success: true }),
+        json: () => ({success: true}),
       })
 
       const spy = vi.spyOn(api, 'fetch')
-      await api.get(['path', 'to', 'catalogs'], z.object({ success: z.boolean() }), { culture: 'en' })
+      await api.get(['path', 'to', 'catalogs'], z.object({success: z.boolean()}), {culture: 'en'})
       expect(spy).toHaveBeenCalledExactlyOnceWith(
         new URL('https://api.apimo.pro/path/to/catalogs?culture=en'),
       )
@@ -248,12 +248,12 @@ describe('api', () => {
   })
 
   describe('populateCache', () => {
-    it('should populate cache without returning entry when no id provided', async ({ api, mockResponse }) => {
+    it('should populate cache without returning entry when no id provided', async ({api, mockResponse}) => {
       const catalogName: CatalogName = 'property_type'
       const culture: ApiCulture = 'en'
       const mockEntries = [
-        { id: 1, name: 'Apartment', name_plurial: 'Apartments' },
-        { id: 2, name: 'House', name_plurial: 'Houses' },
+        {id: 1, name: 'Apartment', name_plurial: 'Apartments'},
+        {id: 2, name: 'House', name_plurial: 'Houses'},
       ]
 
       mockResponse({
@@ -271,12 +271,12 @@ describe('api', () => {
       )
     })
 
-    it('should populate cache and return specific entry when id provided', async ({ api, mockResponse }) => {
+    it('should populate cache and return specific entry when id provided', async ({api, mockResponse}) => {
       const catalogName: CatalogName = 'property_type'
       const culture: ApiCulture = 'en'
       const mockEntries = [
-        { id: 1, name: 'Apartment', name_plurial: 'Apartments' },
-        { id: 2, name: 'House', name_plurial: 'Houses' },
+        {id: 1, name: 'Apartment', name_plurial: 'Apartments'},
+        {id: 2, name: 'House', name_plurial: 'Houses'},
       ]
 
       mockResponse({
@@ -291,14 +291,14 @@ describe('api', () => {
       })
     })
 
-    it('should return null when requested id not found', async ({ api, mockResponse }) => {
+    it('should return null when requested id not found', async ({api, mockResponse}) => {
       const catalogName: CatalogName = 'property_type'
       const culture: ApiCulture = 'en'
       const mockEntries = [
-        { id: 1, name: 'Apartment', name_plurial: 'Apartments' },
+        {id: 1, name: 'Apartment', name_plurial: 'Apartments'},
       ]
 
-      mockResponse({ json: () => mockEntries })
+      mockResponse({json: () => mockEntries})
 
       const result = await api.populateCache(catalogName, culture, 999)
 

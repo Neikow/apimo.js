@@ -1,19 +1,19 @@
-import type { CatalogName } from '../consts/catalogs'
-import type { ApiCulture } from '../consts/languages'
-import type { CatalogDefinition, CatalogEntry, CatalogTransformer, LocalizedCatalogTransformer } from '../schemas/common'
-import type { ApiCacheAdapter, CatalogEntryName } from '../services/storage/types'
-import type { DeepPartial } from '../types'
-import type { ApiSearchParams } from '../utils/url'
+import type {CatalogName} from '../consts/catalogs'
+import type {ApiCulture} from '../consts/languages'
+import type {CatalogDefinition, CatalogEntry, CatalogTransformer, LocalizedCatalogTransformer} from '../schemas/common'
+import {CatalogDefinitionSchema, CatalogEntrySchema} from '../schemas/common'
+import type {ApiCacheAdapter, CatalogEntryName} from '../services/storage/types'
+import {CacheExpiredError} from '../services/storage/types'
+import type {DeepPartial} from '../types'
+import type {ApiSearchParams} from '../utils/url'
+import {makeApiUrl} from '../utils/url'
 import Bottleneck from 'bottleneck'
-import { merge } from 'merge-anything'
-import { z } from 'zod'
-import { getAgencySchema } from '../schemas/agency'
-import { CatalogDefinitionSchema, CatalogEntrySchema } from '../schemas/common'
-import { getPropertySchema } from '../schemas/property'
-import { DummyCache } from '../services/storage/dummy.cache'
-import { MemoryCache } from '../services/storage/memory.cache'
-import { CacheExpiredError } from '../services/storage/types'
-import { makeApiUrl } from '../utils/url'
+import {merge} from 'merge-anything'
+import {z} from 'zod'
+import {getAgencySchema} from '../schemas/agency'
+import {getPropertySchema} from '../schemas/property'
+import {DummyCache} from '../services/storage/dummy.cache'
+import {MemoryCache} from '../services/storage/memory.cache'
 
 /**
  * ApiConfig
@@ -62,7 +62,7 @@ export const DEFAULT_ADDITIONAL_CONFIG: AdditionalConfig = {
   },
 }
 
-export class Api {
+export class Apimo {
   readonly config: AdditionalConfig
   readonly cache: ApiCacheAdapter
   readonly limiter: Bottleneck
@@ -127,7 +127,7 @@ export class Api {
   public async populateCache(catalogName: CatalogName, culture: ApiCulture, id?: number): Promise<void | CatalogEntryName | null> {
     const catalog = await this.fetchCatalog(
       catalogName,
-      { culture },
+      {culture},
     )
     await this.cache.setEntries(
       catalogName,
@@ -136,12 +136,12 @@ export class Api {
     )
 
     if (id !== undefined) {
-      const queriedKey = catalog.find(({ id: entryId }) => entryId === id)
+      const queriedKey = catalog.find(({id: entryId}) => entryId === id)
       return queriedKey
         ? {
-            name: queriedKey.name,
-            namePlural: queriedKey.name_plurial,
-          }
+          name: queriedKey.name,
+          namePlural: queriedKey.name_plurial,
+        }
         : null
     }
   }
@@ -149,13 +149,11 @@ export class Api {
   public async getCatalogEntries(catalogName: CatalogName, options?: Pick<ApiSearchParams, 'culture'>): Promise<CatalogEntry[]> {
     try {
       return await this.cache.getEntries(catalogName, options?.culture ?? this.config.culture)
-    }
-    catch (e) {
+    } catch (e) {
       if (e instanceof CacheExpiredError) {
         await this.populateCache(catalogName, options?.culture ?? this.config.culture)
         return this.cache.getEntries(catalogName, options?.culture ?? this.config.culture)
-      }
-      else {
+      } else {
         throw e
       }
     }
@@ -173,12 +171,12 @@ export class Api {
     return this.get(
       ['agencies'],
       z.object({
-        total_items: z.number(),
-        agencies: getAgencySchema(this.getLocalizedCatalogTransformer(
-          options?.culture ?? this.config.culture,
-        ), this.config).array(),
-        timestamp: z.number(),
-      },
+          total_items: z.number(),
+          agencies: getAgencySchema(this.getLocalizedCatalogTransformer(
+            options?.culture ?? this.config.culture,
+          ), this.config).array(),
+          timestamp: z.number(),
+        },
       ),
     )
   }
@@ -217,12 +215,10 @@ export class Api {
   private async catalogTransformer(catalogName: CatalogName, culture: ApiCulture, id: number): Promise<CatalogEntryName | null> {
     try {
       return await this.cache.getEntry(catalogName, culture, id)
-    }
-    catch (e) {
+    } catch (e) {
       if (e instanceof CacheExpiredError) {
         return await this.populateCache(catalogName, culture, id)
-      }
-      else {
+      } else {
         throw e
       }
     }

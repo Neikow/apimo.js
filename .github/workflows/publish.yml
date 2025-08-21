@@ -55,15 +55,37 @@ jobs:
       - name: Build package
         run: yarn build
 
-      - name: Check if dist directory exists
+      - name: Check build output
         run: |
           if [ ! -d "dist" ]; then
             echo "Build failed: dist directory not found"
             exit 1
           fi
-          echo "Build successful: dist directory created"
+          echo "Build successful. Contents:"
+          ls -la dist/
+          echo "Checking for TypeScript definitions:"
+          find dist -name "*.d.ts" | head -5
+
+      - name: Clean workspace for publishing
+        run: |
+          # Remove development files and directories not needed for NPM
+          rm -rf src/
+          rm -rf coverage/
+          rm -rf cache/
+          rm -rf node_modules/
+          rm -rf .git/
+          rm -rf .github/
+          rm -rf .idea/
+          rm -f .env
+          rm -f .gitignore
+          rm -f eslint.config.mjs
+          rm -f tsconfig.json
+          rm -f vitest.config.ts
+          rm -f yarn.lock
+          echo "Cleaned workspace. Remaining files:"
+          ls -la
 
       - name: Publish to NPM
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
