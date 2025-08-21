@@ -27,6 +27,7 @@ describe('cache - Filesystem', () => {
 
   describe('constructor', () => {
     it('should use default cache location and expiration when no settings provided', () => {
+      // eslint-disable-next-line no-new
       new FilesystemCache()
       expect(existsSync('./cache/catalogs')).toBe(true)
     })

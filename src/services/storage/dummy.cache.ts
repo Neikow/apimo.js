@@ -8,6 +8,10 @@ export class DummyCache implements ApiCacheAdapter {
   constructor() {
   }
 
+  async getEntries(_catalogName: CatalogName, _culture: ApiCulture): Promise<CatalogEntry[]> {
+    throw new CacheExpiredError()
+  }
+
   async setEntries(_catalogName: CatalogName, _culture: ApiCulture, _entries: CatalogEntry[]): Promise<void> {
   }
 

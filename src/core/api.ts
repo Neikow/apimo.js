@@ -63,9 +63,9 @@ export const DEFAULT_ADDITIONAL_CONFIG: AdditionalConfig = {
 }
 
 export class Api {
-  private readonly config: AdditionalConfig
-  private readonly cache: ApiCacheAdapter
-  private readonly limiter: Bottleneck
+  readonly config: AdditionalConfig
+  readonly cache: ApiCacheAdapter
+  readonly limiter: Bottleneck
 
   constructor(
     // The site identifier, in a string of numbers format. You can request yours by contacting Apimo.net customer service.
@@ -100,21 +100,34 @@ export class Api {
     return this.limiter.schedule(() => fetch(input, extendedInit))
   }
 
-  public async getCatalogs(): Promise<CatalogDefinition[]> {
+  public async get<S extends z.Schema>(path: string[], schema: S, options?: Partial<ApiSearchParams>): Promise<z.infer<S>> {
     const response = await this.fetch(
-      makeApiUrl(['catalogs'], this.config),
+      makeApiUrl(path, this.config, {
+        culture: this.config.culture,
+        ...options,
+      }),
     )
-    return z.array(CatalogDefinitionSchema).parse(
-      await response.json(),
+
+    if (!response.ok) {
+      throw new Error(await response.json())
+    }
+
+    return schema.parseAsync(await response.json())
+  }
+
+  public async fetchCatalogs(): Promise<CatalogDefinition[]> {
+    return this.get(
+      ['catalogs'],
+      z.array(CatalogDefinitionSchema),
     )
   }
 
   public async populateCache(catalogName: CatalogName, culture: ApiCulture): Promise<void>
   public async populateCache(catalogName: CatalogName, culture: ApiCulture, id: number): Promise<CatalogEntryName | null>
   public async populateCache(catalogName: CatalogName, culture: ApiCulture, id?: number): Promise<void | CatalogEntryName | null> {
-    const catalog = await this.getCatalog(
+    const catalog = await this.fetchCatalog(
       catalogName,
-      culture,
+      { culture },
     )
     await this.cache.setEntries(
       catalogName,
@@ -133,58 +146,61 @@ export class Api {
     }
   }
 
-  public async getCatalog(catalogName: CatalogName, culture: ApiCulture): Promise<CatalogEntry[]> {
-    const response = await this.fetch(
-      makeApiUrl(['catalogs', catalogName], this.config, { culture }),
-    )
-
-    if (!response.ok) {
-      console.error(await response.json())
-      throw new Error('Response was not OK')
+  public async getCatalogEntries(catalogName: CatalogName, options?: Pick<ApiSearchParams, 'culture'>): Promise<CatalogEntry[]> {
+    try {
+      return await this.cache.getEntries(catalogName, options?.culture ?? this.config.culture)
     }
+    catch (e) {
+      if (e instanceof CacheExpiredError) {
+        await this.populateCache(catalogName, options?.culture ?? this.config.culture)
+        return this.cache.getEntries(catalogName, options?.culture ?? this.config.culture)
+      }
+      else {
+        throw e
+      }
+    }
+  }
 
-    return z.array(CatalogEntrySchema).parse(
-      await response.json(),
+  public async fetchCatalog(catalogName: CatalogName, options?: Pick<ApiSearchParams, 'culture'>): Promise<CatalogEntry[]> {
+    return this.get(
+      ['catalogs', catalogName],
+      z.array(CatalogEntrySchema),
+      options,
     )
   }
 
-  public async getAgencies(culture: ApiCulture, options?: Pick<ApiSearchParams, 'limit' | 'offset'>) {
-    const response = await this.fetch(
-      makeApiUrl(['agencies'], this.config, options),
-    )
-
-    return await z.object({
-      total_items: z.number(),
-      agencies: getAgencySchema(this.getLocalizedCatalogTransformer(culture), this.config).array(),
-      timestamp: z.number(),
-    }).parseAsync(
-      await response.json(),
+  public async fetchAgencies(options?: Pick<ApiSearchParams, 'culture' | 'limit' | 'offset'>) {
+    return this.get(
+      ['agencies'],
+      z.object({
+        total_items: z.number(),
+        agencies: getAgencySchema(this.getLocalizedCatalogTransformer(
+          options?.culture ?? this.config.culture,
+        ), this.config).array(),
+        timestamp: z.number(),
+      },
+      ),
     )
   }
 
-  public async getProperties(agencyId: number, culture: ApiCulture, options?: Pick<ApiSearchParams, 'limit' | 'offset' | 'timestamp' | 'step' | 'status' | 'group'>) {
-    const response = await this.fetch(
-      makeApiUrl(['agencies', agencyId.toString(), 'properties'], this.config, options),
-    )
-
-    if (!response.ok) {
-      console.error(await response.json())
-      throw new Error('Response was not OK')
-    }
-
-    return await z.object({
-      total_items: z.number(),
-      timestamp: z.number(),
-      properties: getPropertySchema(this.getLocalizedCatalogTransformer(culture)).array(),
-    }).parseAsync(
-      await response.json(),
+  public async fetchProperties(agencyId: number, options?: Pick<ApiSearchParams, 'culture' | 'limit' | 'offset' | 'timestamp' | 'step' | 'status' | 'group'>) {
+    return this.get(
+      ['agencies', agencyId.toString(), 'properties'],
+      z.object({
+        total_items: z.number(),
+        timestamp: z.number(),
+        properties: getPropertySchema(this.getLocalizedCatalogTransformer(
+          options?.culture ?? this.config.culture,
+        )).array(),
+      }),
+      options,
     )
   }
 
   private getLocalizedCatalogTransformer(culture: ApiCulture): LocalizedCatalogTransformer {
     return async (catalogName, id) => {
       if (!this.config.catalogs.transform.active) {
-        return id.toString()
+        return `${catalogName}.${id}`
       }
       if (this.config.catalogs.transform.transformFn) {
         return this.config.catalogs.transform.transformFn(

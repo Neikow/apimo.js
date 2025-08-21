@@ -26,6 +26,8 @@
   "author": "Vitaly Lysen <vitaly@lysen.dev> (https://lysen.dev)",
   "license": "MIT",
   "dependencies": {
+    "@anatine/zod-mock": "^3.14.0",
+    "@faker-js/faker": "^9.9.0",
     "bottleneck": "^2.19.5",
     "merge-anything": "^6.0.6",
     "zod": "^3.21.4"

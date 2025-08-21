@@ -46,6 +46,23 @@ export class MemoryCache implements ApiCacheAdapter {
     return memoryEntry.cache.get(id) ?? null
   }
 
+  async getEntries(catalogName: CatalogName, culture: ApiCulture): Promise<CatalogEntry[]> {
+    const memoryEntry = this._MEMORY.get(this.getCacheKey(catalogName, culture))
+
+    if (!memoryEntry) {
+      throw new CacheExpiredError()
+    }
+    if (memoryEntry.timestamp + this.cacheExpirationMs < Date.now()) {
+      throw new CacheExpiredError()
+    }
+
+    return Array.from(memoryEntry.cache.entries()).map(([id, { name, namePlural }]) => ({
+      id,
+      name,
+      name_plurial: namePlural,
+    }))
+  }
+
   private getCacheKey(catalogName: CatalogName, culture: ApiCulture) {
     return `${catalogName}.${culture}`
   }

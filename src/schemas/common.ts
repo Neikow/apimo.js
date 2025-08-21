@@ -43,8 +43,8 @@ export function getUserSchema(transformer: LocalizedCatalogTransformer) {
     id: z.coerce.number(),
     agency: z.coerce.number(),
     active: z.boolean(),
-    created_at: z.string().transform(Converters.toDate),
-    updated_at: z.string().transform(Converters.toDate),
+    created_at: z.coerce.string().transform(Converters.toDate),
+    updated_at: z.coerce.string().transform(Converters.toDate),
     firstname: z.string(),
     lastname: z.string(),
     username: z.string().optional(),
@@ -57,12 +57,11 @@ export function getUserSchema(transformer: LocalizedCatalogTransformer) {
     mobile: z.string(),
     fax: z.string().nullable(),
     city: NameIdPairSchema.nullable().optional(),
-    birthday_at: z.string().transform(Converters.toDate),
+    birthday_at: z.coerce.string().transform(Converters.toDate),
     timezone: z.string().nullable(),
     picture: z.string().nullable(),
     partners: unknown().array().optional(),
     stories: unknown().array().optional(),
     rates: unknown(),
-  },
-  )
+  })
 }

@@ -64,6 +64,26 @@ export class FilesystemCache implements ApiCacheAdapter {
     return parsed.cache[id.toString()] ?? null
   }
 
+  async getEntries(catalogName: CatalogName, culture: ApiCulture): Promise<CatalogEntry[]> {
+    const filePath = this.getCacheFilePath(catalogName, culture)
+    const data = await this.readFileOrThrow(filePath)
+    const parsed: {
+      timestamp: number
+      cache: { [id: string]: CatalogEntryName | undefined }
+    } = JSON.parse(data)
+
+    const currentTimestamp = Date.now()
+    if (parsed.timestamp + this.cacheExpirationMs < currentTimestamp) {
+      throw new CacheExpiredError()
+    }
+
+    return Object.entries(parsed.cache).map(([id, entry]) => ({
+      id: Number.parseInt(id, 10),
+      name: entry?.name ?? 'missing',
+      name_plurial: entry?.namePlural,
+    }))
+  }
+
   private getCacheFilePath(catalogName: CatalogName, culture: ApiCulture) {
     return path.join(this.path, this.getCacheFileName(catalogName, culture))
   }

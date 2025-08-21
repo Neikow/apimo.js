@@ -10,6 +10,7 @@ export interface CatalogEntryName {
 export interface ApiCacheAdapter {
   setEntries: (catalogName: CatalogName, culture: ApiCulture, entries: CatalogEntry[]) => Promise<void>
   getEntry: (catalogName: CatalogName, culture: ApiCulture, id: number) => Promise<CatalogEntryName | null>
+  getEntries: (catalogName: CatalogName, culture: ApiCulture) => Promise<CatalogEntry[]>
 }
 
 export class CacheExpiredError extends Error {
