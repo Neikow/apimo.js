@@ -4,3 +4,5 @@ node_modules
 dist
 cache
 coverage
+
+local.test.ts
