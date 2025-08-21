@@ -27,13 +27,13 @@ yarn add apimo.js
 ## Quick Start
 
 ```typescript
-import {Apimo} from 'apimo.js'
+import { Apimo } from 'apimo.js'
 
 const api = new Apimo(
-  'YOUR_BRIDGE_ID',     // Get from Apimo support
-  'YOUR_API_TOKEN',     // Get from Apimo support
+  'YOUR_BRIDGE_ID', // Get from Apimo support
+  'YOUR_API_TOKEN', // Get from Apimo support
   {
-    culture: 'en',      // Default language
+    culture: 'en', // Default language
     catalogs: {
       cache: {
         active: true,
@@ -62,15 +62,15 @@ const agencies = await api.getAgencies()
 
 ```typescript
 const api = new Apimo(bridgeId, token, {
-  baseUrl: 'https://api.apimo.pro',  // API base URL
-  culture: 'en',                     // Default language (en, fr)
+  baseUrl: 'https://api.apimo.pro', // API base URL
+  culture: 'en', // Default language (en, fr)
   catalogs: {
     cache: {
-      active: true,                  // Enable catalog caching
-      adapter: new MemoryCache()     // Cache implementation
+      active: true, // Enable catalog caching
+      adapter: new MemoryCache() // Cache implementation
     },
     transform: {
-      active: true,                  // Enable catalog transformation
+      active: true, // Enable catalog transformation
       transformFn: customTransformer // Optional custom transformer
     }
   }
@@ -82,7 +82,7 @@ const api = new Apimo(bridgeId, token, {
 #### Memory Cache (Default)
 
 ```typescript
-import {MemoryCache} from 'apimo.js'
+import { MemoryCache } from 'apimo.js'
 
 const api = new Apimo(bridgeId, token, {
   catalogs: {
@@ -96,7 +96,7 @@ const api = new Apimo(bridgeId, token, {
 #### Filesystem Cache
 
 ```typescript
-import {FilesystemCache} from 'apimo.js'
+import { FilesystemCache } from 'apimo.js'
 
 const api = new Apimo(bridgeId, token, {
   catalogs: {
@@ -110,7 +110,7 @@ const api = new Apimo(bridgeId, token, {
 #### Dummy Cache (No Caching)
 
 ```typescript
-import {DummyCache} from 'apimo.js'
+import { DummyCache } from 'apimo.js'
 
 const api = new Apimo(bridgeId, token, {
   catalogs: {
@@ -206,7 +206,7 @@ const entries = await api.getCatalogEntries('property_category', {
 Make a direct API call with schema validation.
 
 ```typescript
-import {z} from 'zod'
+import { z } from 'zod'
 
 const customSchema = z.object({
   id: z.number(),
@@ -233,30 +233,22 @@ Apimo.js automatically transforms catalog IDs into human-readable names:
 
 ```typescript
 // Raw API response
-{
-  "type"
-:
-  1,
-    "category"
-:
-  2
+const rawResponse = {
+  type: 1,
+  category: 2
 }
 
 // Transformed response
-{
-  "type"
-:
-  "House",
-    "category"
-:
-  "Sale"
+const transformedResponse = {
+  type: 'House',
+  category: 'Sale'
 }
 ```
 
 ### Custom Transformers
 
 ```typescript
-const customTransformer = async (catalogName, culture, id) => {
+async function customTransformer(catalogName, culture, id) {
   // Your custom transformation logic
   return await myCustomCatalogLookup(catalogName, culture, id)
 }
@@ -284,10 +276,12 @@ The library includes built-in rate limiting to respect Apimo's API limits:
 ```typescript
 try {
   const properties = await api.getProperties()
-} catch (error) {
+}
+catch (error) {
   if (error instanceof CacheExpiredError) {
     // Handle cache expiration
-  } else {
+  }
+  else {
     // Handle other API errors
     console.error('API Error:', error.message)
   }
@@ -299,7 +293,7 @@ try {
 Full TypeScript support with comprehensive type definitions:
 
 ```typescript
-import type {Property, Agency, CatalogEntry} from 'apimo.js'
+import type { Agency, CatalogEntry, Property } from 'apimo.js'
 
 const property: Property = await api.getProperty(123)
 const agency: Agency = await api.getAgency(456)
