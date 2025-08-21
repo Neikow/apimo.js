@@ -21,7 +21,8 @@
     "build": "tsc",
     "run": "node dist/index.js",
     "test": "vitest run",
-    "test-coverage": "vitest run --coverage"
+    "test-coverage": "vitest run --coverage",
+    "lint": "eslint ."
   },
   "author": "Vitaly Lysen <vitaly@lysen.dev> (https://lysen.dev)",
   "license": "MIT",
