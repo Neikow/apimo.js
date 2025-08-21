@@ -2,12 +2,13 @@
   "name": "apimo.js",
   "version": "1.0.1",
   "description": "A wrapper for the Apimo API with catalog caching for building custom Real Estate website using their technologies.",
-  "main": "/dist/index.js",
+  "author": "Vitaly Lysen <vitaly@lysen.dev> (https://lysen.dev)",
+  "license": "MIT",
+  "homepage": "https://github.com/Neikow/apimo.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Neikow/apimo.js.git"
   },
-  "homepage": "https://github.com/Neikow/apimo.js",
   "bugs": {
     "url": "https://github.com/Neikow/apimo.js/issues"
   },
@@ -16,6 +17,7 @@
     "apimo",
     "real-estate"
   ],
+  "main": "/dist/index.js",
   "scripts": {
     "dev": "",
     "build": "tsc",
@@ -24,18 +26,16 @@
     "test-coverage": "vitest run --coverage",
     "lint": "eslint ."
   },
-  "author": "Vitaly Lysen <vitaly@lysen.dev> (https://lysen.dev)",
-  "license": "MIT",
   "dependencies": {
     "bottleneck": "^2.19.5",
     "merge-anything": "^6.0.6",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^5.0.0",
-    "@types/node": "^24.1.0",
     "@anatine/zod-mock": "^3.14.0",
+    "@antfu/eslint-config": "^5.0.0",
     "@faker-js/faker": "^9.9.0",
+    "@types/node": "^24.1.0",
     "@vitest/coverage-v8": "^3.2.4",
     "dotenv": "^17.2.1",
     "eslint": "^9.32.0",

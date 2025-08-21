@@ -3,8 +3,8 @@ name: Build, Test & Publish to NPM
 on:
   push:
     tags:
-      - 'v*'  # Triggers on version tags like v1.0.0, v1.2.3, etc.
-  workflow_dispatch:  # Allows manual triggering
+      - 'v*'
+  workflow_dispatch:
 
 jobs:
   test:
@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'yarn'
+          cache: yarn
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'yarn'
+          cache: yarn
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies

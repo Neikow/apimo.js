@@ -5,23 +5,23 @@ Apimo.js is a Node.js module for interacting with the Apimo API.
 ## Usage
 
 ```javascript
-var Apimo = require('apimo.js/dist');
+const Apimo = require('apimo.js/dist')
 
 const api = new Apimo(
-    '<BRIDGE_ID>',
-    '<API_TOKEN>',
-    {
-        debug: true,
-        cultures: [
-            'fr_FR',
-            'en_GB',
-        ],
-        updateIntervals: {
-            properties: 1000 * 60 * 5, // 5 minutes
-            catalogs: 1000 * 60 * 60 * 24, // 24 hours
-        }
+  '<BRIDGE_ID>',
+  '<API_TOKEN>',
+  {
+    debug: true,
+    cultures: [
+      'fr_FR',
+      'en_GB',
+    ],
+    updateIntervals: {
+      properties: 1000 * 60 * 5, // 5 minutes
+      catalogs: 1000 * 60 * 60 * 24, // 24 hours
     }
-);
+  }
+)
 ```
 
 The `BRIDGE_ID` and `API_TOKEN` can be asked on the support page of Apimo.
@@ -43,9 +43,9 @@ The data can be set to be updated automatically, given a certain interval.
 Helper method to get a property from the API.
 
 ```javascript
-api.get(['properties', 123]).then(property => {
-    console.log(property); // == Property(id: 123, ...)
-});
+api.get(['properties', 123]).then((property) => {
+  console.log(property) // == Property(id: 123, ...)
+})
 ```
 
 ### `getProperties`
@@ -53,9 +53,9 @@ api.get(['properties', 123]).then(property => {
 Get all properties from the API.
 
 ```javascript
-api.fetchProperties().then(properties => {
-    console.log(properties); // [Property(...), Property(...), ...]
-});
+api.fetchProperties().then((properties) => {
+  console.log(properties) // [Property(...), Property(...), ...]
+})
 ```
 
 A `Property` is the data of a property, as stored in the Apimo API, it is described in
@@ -66,9 +66,9 @@ the [Apimo API documentation](https://apimo.net/en/api/webservice/?child=agencie
 Returns the agencies linked to the bridge.
 
 ```javascript
-api.fetchAgencies().then(agencies => {
-    console.log(agencies); // [Agency(...), Agency(...), ...]
-});
+api.fetchAgencies().then((agencies) => {
+  console.log(agencies) // [Agency(...), Agency(...), ...]
+})
 ```
 
 An `Agency` is the data of an agency, as stored in the Apimo API, it is described in
@@ -79,9 +79,9 @@ the [Apimo API documentation](https://apimo.net/en/api/webservice/?child=agencie
 Converts a Apimo date to a `Date` object.
 
 ```javascript
-api.convertDate('2018-01-01').then(date => {
-    console.log(date); // == Date(2018, 0, 1)
-});
+api.convertDate('2018-01-01').then((date) => {
+  console.log(date) // == Date(2018, 0, 1)
+})
 ```
 
 ## Installation
