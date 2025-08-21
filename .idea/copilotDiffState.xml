@@ -64,6 +64,15 @@
             </PendingDiffInfo>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/tsconfig.json">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/tsconfig.json" />
+              <option name="originalContent" value="{&#10;  &quot;compilerOptions&quot;: {&#10;    &quot;target&quot;: &quot;es2015&quot;,&#10;    &quot;module&quot;: &quot;es2015&quot;,&#10;    &quot;moduleResolution&quot;: &quot;bundler&quot;,&#10;    &quot;strict&quot;: true,&#10;    &quot;declaration&quot;: true,&#10;    &quot;outDir&quot;: &quot;./dist&quot;,&#10;    &quot;esModuleInterop&quot;: true,&#10;    &quot;forceConsistentCasingInFileNames&quot;: true,&#10;    &quot;skipLibCheck&quot;: true&#10;  }&#10;}&#10;" />
+              <option name="updatedContent" value="{&#10;  &quot;compilerOptions&quot;: {&#10;    &quot;target&quot;: &quot;es2015&quot;,&#10;    &quot;module&quot;: &quot;es2015&quot;,&#10;    &quot;moduleResolution&quot;: &quot;bundler&quot;,&#10;    &quot;strict&quot;: true,&#10;    &quot;declaration&quot;: true,&#10;    &quot;outDir&quot;: &quot;./dist&quot;,&#10;    &quot;rootDir&quot;: &quot;./src&quot;,&#10;    &quot;esModuleInterop&quot;: true,&#10;    &quot;forceConsistentCasingInFileNames&quot;: true,&#10;    &quot;skipLibCheck&quot;: true&#10;  },&#10;  &quot;include&quot;: [&quot;src/**/*&quot;],&#10;  &quot;exclude&quot;: [&quot;**/*.test.ts&quot;, &quot;**/*.spec.ts&quot;]&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
