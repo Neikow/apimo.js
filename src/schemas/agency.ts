@@ -64,3 +64,7 @@ export function getAgencySchema(transformer: LocalizedCatalogTransformer, config
     subscription: z.string(),
   })
 }
+
+export type ApimoAgency = z.infer<ReturnType<typeof getAgencySchema>>
+export type ApimoPartner = z.infer<typeof PartnerSchema>
+export type ApimoRate = z.infer<ReturnType<typeof getRateSchema>>

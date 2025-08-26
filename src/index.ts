@@ -7,17 +7,44 @@ export { type AdditionalConfig, Apimo, DEFAULT_ADDITIONAL_CONFIG, DEFAULT_BASE_U
 // Backward compatibility - keep Api as alias
 export { Apimo as Api } from './core/api'
 
+export type { ApimoAgency, ApimoPartner, ApimoRate } from './schemas/agency'
+
 // Schema types
-export type { CatalogDefinition, CatalogEntry, CatalogTransformer, LocalizedCatalogTransformer } from './schemas/common'
+export type {
+  ApimoCity,
+  ApimoUser,
+  CatalogDefinition,
+  CatalogEntry,
+  CatalogTransformer,
+  LocalizedCatalogTransformer,
+} from './schemas/common'
+
+export type {
+  ApimoAgreement,
+  ApimoArea,
+  ApimoComment,
+  ApimoConstruction,
+  ApimoFloor,
+  ApimoHeating,
+  ApimoPicture,
+  ApimoPlot,
+  ApimoPrice,
+  ApimoProperty,
+  ApimoRegulation,
+  ApimoResidence,
+  ApimoSurface,
+  ApimoView,
+  ApimoWater,
+} from './schemas/property'
 
 export { DummyCache } from './services/storage/dummy.cache'
-
 export { FilesystemCache } from './services/storage/filesystem.cache'
+
 // Cache adapters
 export { MemoryCache } from './services/storage/memory.cache'
-
 // Cache types and errors
 export { type ApiCacheAdapter, CacheExpiredError, type CatalogEntryName } from './services/storage/types'
+
 // Utility types
 export type { DeepPartial } from './types'
 

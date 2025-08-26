@@ -255,3 +255,19 @@ export function getPropertySchema(transformer: LocalizedCatalogTransformer) {
     },
   )
 }
+
+export type ApimoProperty = z.infer<ReturnType<typeof getPropertySchema>>
+export type ApimoRegulation = z.infer<ReturnType<typeof getRegulationSchema>>
+export type ApimoConstruction = z.infer<ReturnType<typeof getConstructionSchema>>
+export type ApimoFloor = z.infer<ReturnType<typeof getFloorSchema>>
+export type ApimoHeating = z.infer<ReturnType<typeof getHeatingSchema>>
+export type ApimoWater = z.infer<ReturnType<typeof getWaterSchema>>
+export type ApimoPrice = z.infer<ReturnType<typeof getPriceSchema>>
+export type ApimoResidence = z.infer<ReturnType<typeof getResidenceSchema>>
+export type ApimoView = z.infer<ReturnType<typeof getViewSchema>>
+export type ApimoAgreement = z.infer<ReturnType<typeof getAgreementSchema>>
+export type ApimoSurface = z.infer<ReturnType<typeof getSurfaceSchema>>
+export type ApimoPlot = z.infer<ReturnType<typeof getPlotSchema>>
+export type ApimoArea = z.infer<ReturnType<typeof getAreaSchema>>
+export type ApimoPicture = z.infer<typeof PictureSchema>
+export type ApimoComment = z.infer<typeof CommentSchema>

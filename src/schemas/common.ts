@@ -65,3 +65,6 @@ export function getUserSchema(transformer: LocalizedCatalogTransformer) {
     rates: unknown(),
   })
 }
+
+export type ApimoUser = z.infer<ReturnType<typeof getUserSchema>>
+export type ApimoCity = z.infer<typeof CitySchema>
