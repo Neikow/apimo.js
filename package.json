@@ -38,7 +38,8 @@
     "run": "node dist/index.js",
     "test": "vitest run",
     "test-coverage": "vitest run --coverage",
-    "lint": "eslint ."
+    "lint": "eslint . --fix",
+    "prepare": "husky"
   },
   "dependencies": {
     "bottleneck": "^2.19.5",
@@ -53,6 +54,7 @@
     "@vitest/coverage-v8": "^3.2.4",
     "dotenv": "^17.2.1",
     "eslint": "^9.32.0",
+    "husky": "^9.1.7",
     "typescript": "^5.9.2",
     "vitest": "^3.2.4"
   }
