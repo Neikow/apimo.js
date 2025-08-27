@@ -27,7 +27,7 @@ yarn add apimo.js
 ## Quick Start
 
 ```typescript
-import {Apimo} from 'apimo.js'
+import { Apimo } from 'apimo.js'
 
 const api = new Apimo(
   'YOUR_BRIDGE_ID', // Get from Apimo support
@@ -82,7 +82,7 @@ const api = new Apimo(bridgeId, token, {
 #### Memory Cache (Default)
 
 ```typescript
-import {MemoryCache} from 'apimo.js'
+import { MemoryCache } from 'apimo.js'
 
 const api = new Apimo(bridgeId, token, {
   catalogs: {
@@ -96,7 +96,7 @@ const api = new Apimo(bridgeId, token, {
 #### Filesystem Cache
 
 ```typescript
-import {FilesystemCache} from 'apimo.js'
+import { FilesystemCache } from 'apimo.js'
 
 const api = new Apimo(bridgeId, token, {
   catalogs: {
@@ -110,7 +110,7 @@ const api = new Apimo(bridgeId, token, {
 #### Dummy Cache (No Caching)
 
 ```typescript
-import {DummyCache} from 'apimo.js'
+import { DummyCache } from 'apimo.js'
 
 const api = new Apimo(bridgeId, token, {
   catalogs: {
@@ -206,7 +206,7 @@ const entries = await api.getCatalogEntries('property_category', {
 Make a direct API call with schema validation.
 
 ```typescript
-import {z} from 'zod'
+import { z } from 'zod'
 
 const customSchema = z.object({
   id: z.number(),
@@ -276,10 +276,12 @@ The library includes built-in rate limiting to respect Apimo's API limits:
 ```typescript
 try {
   const properties = await api.getProperties()
-} catch (error) {
+}
+catch (error) {
   if (error instanceof CacheExpiredError) {
     // Handle cache expiration
-  } else {
+  }
+  else {
     // Handle other API errors
     console.error('API Error:', error.message)
   }
@@ -291,7 +293,7 @@ try {
 Full TypeScript support with comprehensive type definitions:
 
 ```typescript
-import type {Agency, CatalogEntry, Property} from 'apimo.js'
+import type { Agency, CatalogEntry, Property } from 'apimo.js'
 
 const property: Property = await api.getProperty(123)
 const agency: Agency = await api.getAgency(456)
